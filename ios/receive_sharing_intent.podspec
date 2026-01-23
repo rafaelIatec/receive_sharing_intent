@@ -33,6 +33,10 @@ A flutter plugin that enables flutter apps to receive sharing photos from other 
   s.subspec 'Flutter' do |fl|
     fl.source_files = 'Classes/ReceiveSharingIntentPlugin.{h,m}', 'Classes/SwiftReceiveSharingIntentPlugin.swift'
     fl.public_header_files = 'Classes/ReceiveSharingIntentPlugin.h'
+    # Garante que o header público fique acessível como:
+    # Pods/Headers/Public/receive_sharing_intent/ReceiveSharingIntentPlugin.h
+    # Isso permite que o GeneratedPluginRegistrant prefira o #import ao invés de @import.
+    fl.header_dir = 'receive_sharing_intent'
     fl.dependency 'Flutter'
     fl.dependency 'receive_sharing_intent/ShareExtension'
     fl.ios.deployment_target = '12.0'
