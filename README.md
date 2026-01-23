@@ -222,11 +222,17 @@ target 'Runner' do
   use_modular_headers!
 
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
+end
 
-  # Share Extension is name of Extension which you created which is in this case 'Share Extension'
-  target 'Share Extension' do
-    inherit! :search_paths
-  end
+# Share Extension is name of Extension which you created which is in this case 'Share Extension'
+# IMPORTANT: do NOT inherit all pods from Runner here. Otherwise the extension target will also try
+# to build/import the Flutter part of this plugin and can fail with "module 'Flutter' not found".
+target 'Share Extension' do
+  use_frameworks!
+  use_modular_headers!
+
+  # Install only the extension-safe part of the pod (no Flutter dependency).
+  pod 'receive_sharing_intent/ShareExtension', :path => '.symlinks/plugins/receive_sharing_intent/ios'
 end
 ...
 ```
